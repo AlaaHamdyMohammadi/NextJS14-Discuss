@@ -18,3 +18,5 @@ export default async function Home() {
     </div>
   );
 }
+
+//fallback, image, head, app.js, document.js, oauth
