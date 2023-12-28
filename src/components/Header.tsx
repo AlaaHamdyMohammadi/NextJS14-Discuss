@@ -15,6 +15,26 @@ import Link from "next/link";
 async function Header() {
   const session = await auth();
 
+  let authContent: React.ReactNode;
+  if (session?.user) {
+    authContent = <Avatar src={session.user.image || ""} />;
+  } else {
+    authContent = (
+      <>
+        <NavbarItem>
+          <Button type="submit" color="secondary" variant="bordered">
+            Sign In
+          </Button>
+        </NavbarItem>
+        <NavbarItem>
+          <Button type="submit" color="secondary" variant="flat">
+            Sign Up
+          </Button>
+        </NavbarItem>
+      </>
+    );
+  }
+
   return (
     <Navbar className="shadow mb-6">
       <NavbarBrand>
@@ -28,9 +48,7 @@ async function Header() {
         </NavbarItem>
       </NavbarContent>
       <NavbarContent justify="end">
-        <NavbarItem>
-            {session?.user ? <div>Signed In</div>: <div>Signed Out</div>}
-        </NavbarItem>
+        {authContent}
       </NavbarContent>
     </Navbar>
   );
